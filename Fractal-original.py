@@ -3,6 +3,7 @@
 #The number of columns and rows of '*'s are equal, and both are
 #calculated as 3^n.
 
+#The general steps for this algorithm are as follows:
 #give to Fractal the board, as a list of strings
 #If I have a 9x9 board:
 #["*********","*********","*********","*********","*********","*********","*********","*********","*********"]
@@ -11,7 +12,11 @@
 #[["***","***","***"],["***","***","***"],["***","***","***"],["***","***","***"],["***","***","***"],
 #["***","***","***"],["***","***","***"],["***","***","***"],["***","***","***"]]
 
-#Next, repace the fifth, (#4) subsection of n/3 x n/3 with n/3 lines, n/3 spaces long
+#Next, repace the fifth, (index 4) subsection of n/3 x n/3 with the same list, but made of spaces.
+
+#Then, apply Fractal to each of the other smaller sections. Once it reaches a section that is 1 x 1, it returns "*" or " ".
+
+#Last, once the function is leaving the recursive section, reconstruct the board.
 
 
 #divideBoard needs to output 3 lists of n/3 by n/3 boards, giving it n/3 1 by n long boards
@@ -40,7 +45,6 @@ def reconstruct(boxes):
     hold = ""
     #This is for each set of 3 boxes
     for j in range(3):
-        #now, for each set of three, we need to 
         for i in range(len(boxes[0])):
             hold = ""
             for k in range(3):
@@ -48,6 +52,7 @@ def reconstruct(boxes):
             output.append(hold)
 
     return output
+
 def Fractal(board):
     #print len(board)
     #print board
@@ -55,7 +60,7 @@ def Fractal(board):
         hold1 = divideBoard(board[:len(board)/3])
         hold2 = divideBoard(board[len(board)/3:2*(len(board)/3)])
         hold3 = divideBoard(board[2*(len(board)/3):])
-        #this is a list of lists, not a list of three lists of lists. Is that right? yup.
+        #this is a list of lists, not a list of three lists of lists. 
         board = [hold1[0],hold1[1],hold1[2],hold2[0],hold2[1],hold2[2],hold3[0],hold3[1],hold3[2]]
 
         #Once the board is divided into 9, we perform Fractal on each of the 9 boxes.
@@ -76,8 +81,7 @@ def Fractal(board):
         return board
 
 #-------------------------------------------------------------------------------------------------
-#this is just to print the fractal for fun. Comment it out to run the contest input and see
-#the cut-out fractals.
+#this is just to print the fractal nicely. Other ways of formatting it exist, but this was easy.
 while True:
     n = input("please input a number n. The fractal will be 3^n by 3^n. 3 or 4 is recommended.")
     enter = (3**n)*[(3**n)*"*"]
@@ -89,39 +93,3 @@ while True:
     print
     print
 #-------------------------------------------------------------------------------------------------
-
-textfile = open ("D:\Coding\Contest\Reference\Data\CCC 1999\Windows\drac.in")
-d = int(textfile.readline())
-textfile.readline()
-for we in range(d):
-    n = int(textfile.readline())
-    textfile.readline()
-    b = int(textfile.readline())
-    #in a 9x9 square, this turns a bottom of 3 to a bottom of 6,
-    #which is exactly what we need to index it. Same goes for top.
-    b = 3**n - b
-    textfile.readline()
-    t = int(textfile.readline())
-    t = 3**n - t
-    textfile.readline()
-    l = int(textfile.readline())
-    textfile.readline()
-    r = int(textfile.readline())
-    textfile.readline()
-
-#    if we == 1:
- #       continue
-
-    enter = (3**n)*[(3**n)*"*"]
-
-    almost = Fractal(enter)
-#the boundaries for the print are a bit broken. Can fix later.
-    for i in range(len(almost)):
-        if i >= t and i <= b:
-            for j in range(len(almost[i])):
-                if j+1 >= l and j+1 <= r:
-                    print almost[i][j],
-            print
-
-    print
-    print 
