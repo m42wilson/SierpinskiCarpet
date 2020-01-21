@@ -1,0 +1,72 @@
+# This program takes a number n as an input and creates a
+# fractal, the Sierpinsky Carpet, with side lengths 3^n.
+
+# In broad strokes, we essentially start with a square with a missing center,
+# and moing from top left to bottom right through the sections when the
+# square is divided into 9 even pieces, and we turn each of the sections into
+# a 3*3 squre with a missing center piece - the same shape we started with.
+# The centers of all of these squares do not change. We go into each of
+# the created squares and perform the same process, and then, as we finish each
+# individual square, we format it in such a way that it can be reconstructed
+# as it becomes part of a larger square.
+     
+#Takes 9 boxes and turns it back into an arbitrary number of strings.
+#I'm updating this code right now, and I forot how this works,
+#but it works and it was exactly what I needed to finish this.
+#each "box" is a list of n strings, each of length n. 
+#We add the first string of the first 3 boxes, then the second, then the third, until we have added all n strings.
+#Then we do this again for the nest 2 sets of 3 boxes. This produces a box from the above recursive call.
+def reconstruct(boxes):
+    #input is 9 (n by n) boxes. No idea how large n is.
+    #it becomes 3n (1 by 3n) lines.
+    output = []
+    hold = ""
+    #This is for each set of 3 boxes
+    for j in range(3):
+        for i in range(len(boxes[0])):
+            hold = ""
+            for k in range(3):
+                hold += boxes[3*j+k][i]
+            output.append(hold)
+    return output
+    
+def Fractal (depth, base):
+    # Essentially, "If the square is a center square, convert it to the right
+    # size to reconstruct it." It 
+    if base == " ":
+        out = []
+        if depth == 0:
+            return " "
+        else:
+            out = []
+            for i in range(9):
+                out.append(Fractal(depth-1, base))
+    else:
+        #If the depth is 0, the fractal is the smallest possible: a single,
+        #unmodified character. This is the base case
+        if depth == 0:
+            return "%s"%base
+        #Otherwise, for each of the 9 sections, turn it into a fractal, except
+        #the center piece, which is left empty. The method by which this is
+        #done is through setting the base for that section to " ", making it
+        #invisible.
+        else:
+            out = []
+            for i in range(9):
+                if i == 4:
+                    out.append(Fractal(depth-1, " "))
+                else:
+                    out.append(Fractal(depth-1, base))
+    return reconstruct(out)
+
+def main():
+    n = input("please input a number n. The fractal will be 3^n by 3^n. 3 or 4 is recommended.")
+    fractal = Fractal(n, "*")
+    pretty = ""
+    for i in fractal:
+        for j in i:
+            pretty += "%s "%(j)
+        pretty += "\n"
+    print pretty
+    
+main()
