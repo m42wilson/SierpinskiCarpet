@@ -1,3 +1,9 @@
+#This is the updated version of Fractal-original. This program prints the output much more quickly, which is the most obvious 
+#improvement when interacting with it, but it also is much clearer about what is happening, it works entirely recursively 
+#instead of altering a global list by using the pointer to it, and it creates the board rather than starting with a board 
+#of the right size and removing elements from it. Of course, the comments are also improved. 
+#This shows my current ability in regards to programming concepts, rather than technical ability, as well as my improvement.
+
 # This program takes a number n as an input and creates a
 # fractal, the Sierpinsky Carpet, with side lengths 3^n.
 
