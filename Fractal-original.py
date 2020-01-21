@@ -1,3 +1,9 @@
+#This is one of the most technically difficult programs I have written to date, in the summer of 2018. 
+#It serves as an example of my level of proficiency with python and programming in general.
+#I included an update, as this was only techincally difficult by virtue of me doing the task poorly.
+#Since I made it, I have had more experience with recursive programs and the updated version is
+#significantly improved, but less technically impressive.
+
 #The premise is to generate a fractal when given a number n.
 #The fractal is made of the '*' character and is a sierpinski carpet.
 #The number of columns and rows of '*'s are equal, and both are
